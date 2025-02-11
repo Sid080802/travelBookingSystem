@@ -4,6 +4,8 @@ const { graphqlHTTP } = require("express-graphql");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { buildSchema } = require("graphql");
+import { ApolloServer } from 'apollo-server-express';
+import { typeDefs, resolvers } from './graphql/schema.js';
 
 const app = express();
 app.use(cors());
@@ -68,9 +70,14 @@ const root = {
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
-await server.start();
-server.applyMiddleware({ app });
+async function startServer() {
+    const server = new ApolloServer({ typeDefs, resolvers });
+    
+    await server.start(); 
+    
+    server.applyMiddleware({ app });
+
+}
 
 app.get('/', (req, res) => {
     res.send('GraphQL API is running');
