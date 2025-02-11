@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const { buildSchema } = require("graphql");
 import { ApolloServer } from 'apollo-server-express';
-import { typeDefs, resolvers } from './graphql/schema.js';
+import { typeDefs, resolvers } from '../frontend/src/BookingForm.jsx';
 
 const app = express();
 app.use(cors());
