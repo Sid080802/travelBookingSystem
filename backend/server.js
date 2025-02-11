@@ -68,6 +68,17 @@ const root = {
   },
 };
 
+const server = new ApolloServer({ typeDefs, resolvers });
+await server.start();
+server.applyMiddleware({ app });
+
+app.get('/', (req, res) => {
+    res.send('GraphQL API is running');
+  });
+
 app.use("/graphql", graphqlHTTP({ schema, rootValue: root, graphiql: true }));
 
-app.listen(4000, () => console.log("Server running on port 4000"));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
